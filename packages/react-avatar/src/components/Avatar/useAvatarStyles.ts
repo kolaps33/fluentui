@@ -1,4 +1,4 @@
-import { ax, makeOverrides, makeStyles } from '@fluentui/react-make-styles';
+import { ax, makeOverrides } from '@fluentui/react-make-styles';
 import { AvatarState } from './Avatar.types';
 
 //
@@ -49,7 +49,7 @@ const animations = {
   nullEasing: animationLines.linear,
 };
 
-const useStyles = makeStyles({
+const useStyles = makeOverrides({
   root: tokens => ({
     display: 'inline-block',
     flexShrink: 0,
@@ -161,176 +161,117 @@ const useStyles = makeStyles({
 
   rootSquare: tokens => ({ borderRadius: tokens.global.borderRadius.medium }),
   rootSquareSmall: tokens => ({ borderRadius: tokens.global.borderRadius.small }),
-  rootSquareMedium: tokens => ({ borderRadius: tokens.global.borderRadius.large }),
+  rootSquareLarge: tokens => ({ borderRadius: tokens.global.borderRadius.large }),
 
-  rootSquareLarge: tokens => ({ borderRadius: tokens.global.borderRadius.xLarge }),
+  rootSquareXLarge: tokens => ({ borderRadius: tokens.global.borderRadius.xLarge }),
 
-  // [
-  //   s => s.active === 'active' || s.active === 'inactive',
-  //   {
-  //     transform: 'perspective(1px)', // Work-around for text pixel snapping at the end of the animation
-  //     // eslint-disable-next-line @fluentui/max-len
-  //     transition: `transform ${animationTiming.ultraSlow} ${animations.fastEase}, opacity ${animationTiming.faster} ${animations.nullEasing}`,
-  //
-  //     ':before': {
-  //       content: '" "',
-  //       position: 'absolute',
-  //       top: 0,
-  //       left: 0,
-  //       bottom: 0,
-  //       right: 0,
-  //
-  //       borderRadius: 'inherit',
-  //       // eslint-disable-next-line @fluentui/max-len
-  //       transition: `margin ${animationTiming.ultraSlow} ${animations.fastEase}, opacity ${animationTiming.slower} ${animations.nullEasing}`,
-  //     },
-  //   },
-  // ],
-  // [
-  //   s => s.active === 'inactive',
-  //   {
-  //     opacity: '0.8',
-  //     transform: 'scale(0.875)',
-  //     // eslint-disable-next-line @fluentui/max-len
-  //     transition: `transform ${animationTiming.ultraSlow} ${animations.fastOutSlowInMin}, opacity ${animationTiming.faster} ${animations.nullEasing}`,
-  //
-  //     ':before': {
-  //       margin: 0,
-  //       opacity: 0,
-  //       // eslint-disable-next-line @fluentui/max-len
-  //       transition: `margin ${animationTiming.ultraSlow} ${animations.fastOutSlowInMin}, opacity ${animationTiming.slower} ${animations.nullEasing}`,
-  //     },
-  //   },
-  // ],
-  //
-  // [
-  //   s => s.activeRing,
-  //   tokens => ({
-  //     ':before': {
-  //       borderColor: tokens.alias.color.neutral.brandForeground, // TODO: use valid token
-  //       borderStyle: 'solid',
-  //       borderWidth: tokens.global.strokeWidth.thick,
-  //
-  //       margin: `calc(-2 * ${tokens.global.strokeWidth.thick})`,
-  //     },
-  //   }),
-  // ],
-  // [
-  //   s => s.activeRing && (s.size === 48 || s.size === 56 || s.size === 64),
-  //   tokens => ({
-  //     ':before': {
-  //       margin: `calc(-2 * ${tokens.global.strokeWidth.thicker})`,
-  //       borderWidth: tokens.global.strokeWidth.thicker,
-  //     },
-  //   }),
-  // ],
-  // [
-  //   s => s.activeRing && (s.size === 72 || s.size === 96 || s.size === 120 || s.size === 128),
-  //   tokens => ({
-  //     ':before': {
-  //       margin: `calc(-2 * ${tokens.global.strokeWidth.thickest})`,
-  //       borderWidth: tokens.global.strokeWidth.thickest,
-  //     },
-  //   }),
-  // ],
-  //
-  // [
-  //   s => s.activeShadow,
-  //   tokens => ({
-  //     ':before': { boxShadow: tokens.alias.shadow.shadow8 },
-  //   }),
-  // ],
-  // [
-  //   s => s.activeShadow && (s.size === 20 || s.size === 24 || s.size === 28),
-  //   tokens => ({
-  //     ':before': { boxShadow: tokens.alias.shadow.shadow4 },
-  //   }),
-  // ],
-  // [
-  //   s => s.activeShadow && (s.size === 48 || s.size === 56 || s.size === 64),
-  //   tokens => ({
-  //     ':before': { boxShadow: tokens.alias.shadow.shadow16 },
-  //   }),
-  // ],
-  // [
-  //   s => s.activeShadow && (s.size === 72 || s.size === 96 || s.size === 120 || s.size === 128),
-  //   tokens => ({
-  //     ':before': { boxShadow: tokens.alias.shadow.shadow28 },
-  //   }),
-  // ],
-  //
-  // // TODO: use proper tokens instead of "rgba(0,120,212,0.3)"
-  // [
-  //   s => s.activeGlow,
-  //   tokens => ({
-  //     ':before': {
-  //       boxShadow: `${tokens.alias.shadow.shadow8}, 0 0 8px 2px rgba(0,120,212,0.3)`,
-  //     },
-  //   }),
-  // ],
-  // [
-  //   s => s.activeGlow && (s.size === 20 || s.size === 24 || s.size === 28),
-  //   tokens => ({
-  //     ':before': {
-  //       boxShadow: `${tokens.alias.shadow.shadow4}, 0 0 4px 2px rgba(0,120,212,0.3)`,
-  //     },
-  //   }),
-  // ],
-  // [
-  //   s => s.activeGlow && (s.size === 48 || s.size === 56 || s.size === 64),
-  //   tokens => ({
-  //     ':before': {
-  //       boxShadow: `${tokens.alias.shadow.shadow16}, 0 0 8px 2px rgba(0,120,212,0.3)`,
-  //     },
-  //   }),
-  // ],
-  // [
-  //   s => s.activeGlow && (s.size === 72 || s.size === 96 || s.size === 120 || s.size === 128),
-  //   tokens => ({
-  //     ':before': {
-  //       boxShadow: `${tokens.alias.shadow.shadow28}, 0 0 28px 4px rgba(0,120,212,0.3)`,
-  //     },
-  //   }),
-  // ],
-  //
-  // [
-  //   s => s.hasIcon,
-  //   {
-  //     fontSize: '16px',
-  //     fontWeight: 'initial',
-  //   },
-  // ],
-  // [
-  //   s => s.hasIcon && (s.size === 20 || s.size === 24),
-  //   {
-  //     fontSize: '12px',
-  //   },
-  // ],
-  //
-  // [
-  //   s => s.hasIcon && (s.size === 28 || s.size === 32 || s.size === 36 || s.size === 40),
-  //   {
-  //     fontSize: '16px',
-  //   },
-  // ],
-  // [
-  //   s => s.hasIcon && (s.size === 48 || s.size === 56 || s.size === 64 || s.size === 72),
-  //   {
-  //     fontSize: '24px',
-  //   },
-  // ],
-  // [
-  //   s => s.hasIcon && s.size === 96,
-  //   {
-  //     fontSize: '40px',
-  //   },
-  // ],
-  // [
-  //   s => s.hasIcon && (s.size === 120 || s.size === 128),
-  //   {
-  //     fontSize: '48px',
-  //   },
-  // ],
+  rootActiveInactive: {
+    transform: 'perspective(1px)', // Work-around for text pixel snapping at the end of the animation
+    // eslint-disable-next-line @fluentui/max-len
+    transition: `transform ${animationTiming.ultraSlow} ${animations.fastEase}, opacity ${animationTiming.faster} ${animations.nullEasing}`,
+
+    ':before': {
+      content: '" "',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      bottom: 0,
+      right: 0,
+
+      borderRadius: 'inherit',
+      // eslint-disable-next-line @fluentui/max-len
+      transition: `margin ${animationTiming.ultraSlow} ${animations.fastEase}, opacity ${animationTiming.slower} ${animations.nullEasing}`,
+    },
+  },
+
+  rootInactive: {
+    opacity: '0.8',
+    transform: 'scale(0.875)',
+    // eslint-disable-next-line @fluentui/max-len
+    transition: `transform ${animationTiming.ultraSlow} ${animations.fastOutSlowInMin}, opacity ${animationTiming.faster} ${animations.nullEasing}`,
+
+    ':before': {
+      margin: 0,
+      opacity: 0,
+      // eslint-disable-next-line @fluentui/max-len
+      transition: `margin ${animationTiming.ultraSlow} ${animations.fastOutSlowInMin}, opacity ${animationTiming.slower} ${animations.nullEasing}`,
+    },
+  },
+
+  rootActiveRing: tokens => ({
+    ':before': {
+      borderColor: tokens.alias.color.neutral.brandForeground, // TODO: use valid token
+      borderStyle: 'solid',
+      borderWidth: tokens.global.strokeWidth.thick,
+
+      margin: `calc(-2 * ${tokens.global.strokeWidth.thick})`,
+    },
+  }),
+
+  rootActiveRingMedium: tokens => ({
+    ':before': {
+      margin: `calc(-2 * ${tokens.global.strokeWidth.thicker})`,
+      borderWidth: tokens.global.strokeWidth.thicker,
+    },
+  }),
+  rootActiveRingLarge: tokens => ({
+    ':before': {
+      margin: `calc(-2 * ${tokens.global.strokeWidth.thickest})`,
+      borderWidth: tokens.global.strokeWidth.thickest,
+    },
+  }),
+
+  rootActiveShadow: tokens => ({
+    ':before': { boxShadow: tokens.alias.shadow.shadow8 },
+  }),
+  rootActiveShadowSmall: tokens => ({
+    ':before': { boxShadow: tokens.alias.shadow.shadow4 },
+  }),
+  rootActiveShadowMedium: tokens => ({
+    ':before': { boxShadow: tokens.alias.shadow.shadow16 },
+  }),
+  rootActiveShadowLarge: tokens => ({
+    ':before': { boxShadow: tokens.alias.shadow.shadow28 },
+  }),
+
+  // TODO: use proper tokens instead of "rgba(0,120,212,0.3)"
+  rootActiveGlow: tokens => ({
+    ':before': {
+      boxShadow: `${tokens.alias.shadow.shadow8}, 0 0 8px 2px rgba(0,120,212,0.3)`,
+    },
+  }),
+  rootActiveGlowSmall: tokens => ({
+    ':before': {
+      boxShadow: `${tokens.alias.shadow.shadow4}, 0 0 4px 2px rgba(0,120,212,0.3)`,
+    },
+  }),
+  rootActiveGlowMedium: tokens => ({
+    ':before': {
+      boxShadow: `${tokens.alias.shadow.shadow16}, 0 0 8px 2px rgba(0,120,212,0.3)`,
+    },
+  }),
+  rootActiveGlowLarge: tokens => ({
+    ':before': {
+      boxShadow: `${tokens.alias.shadow.shadow28}, 0 0 28px 4px rgba(0,120,212,0.3)`,
+    },
+  }),
+
+  rootHasIcon: {
+    fontSize: '16px',
+    fontWeight: 'initial',
+  },
+  rootHasIcon12: {
+    fontSize: '12px',
+  },
+  rootHasIcon24: {
+    fontSize: '24px',
+  },
+  rootHasIcon40: {
+    fontSize: '40px',
+  },
+  rootHasIcon48: {
+    fontSize: '48px',
+  },
 
   badge: {
     position: 'absolute',
@@ -388,31 +329,52 @@ const useStyles = makeStyles({
   }),
 });
 
-type BadgeStyleSizes =
-  | 'badgeSize20'
-  | 'badgeSize24'
-  | 'badgeSize28'
-  | 'badgeSize32'
-  | 'badgeSize36'
-  | 'badgeSize40'
-  | 'badgeSize48'
-  | 'badgeSize56'
-  | 'badgeSize64'
-  | 'badgeSize72'
-  | 'badgeSize96'
-  | 'badgeSize120'
-  | 'badgeSize128';
-
 export const useAvatarStyles = (state: AvatarState): AvatarState => {
-  const classes = useStyles(state);
+  const classes = useStyles();
 
   state.className = ax(
     classes.root,
+    classes[`rootSize${state.size}` as keyof typeof classes],
 
-    state.square && classes.square,
-    state.square && (state.size === 20 || state.size === 24) && classes.squareSmall,
-    state.square && (state.size === 56 || state.size === 64 || state.size === 72) && classes.rootSquareMedium,
-    state.square && (state.size === 96 || state.size === 120 || state.size === 128) && classes.rootSquareLarge,
+    state.square && classes.rootSquare,
+    state.square && (state.size === 20 || state.size === 24) && classes.rootSquareSmall,
+    state.square && (state.size === 56 || state.size === 64 || state.size === 72) && classes.rootSquareLarge,
+    state.square && (state.size === 96 || state.size === 120 || state.size === 128) && classes.rootSquareXLarge,
+
+    (state.active === 'active' || state.active === 'inactive') && classes.rootActiveInactive,
+    state.active === 'inactive' && classes.rootInactive,
+
+    state.activeRing && classes.rootActiveRing,
+    state.activeRing && (state.size === 48 || state.size === 56 || state.size === 64) && classes.rootActiveRingMedium,
+    state.activeRing &&
+      (state.size === 72 || state.size === 96 || state.size === 120 || state.size === 128) &&
+      classes.rootActiveRingLarge,
+
+    state.activeShadow && classes.rootActiveShadow,
+    state.activeShadow &&
+      (state.size === 20 || state.size === 24 || state.size === 28) &&
+      classes.rootActiveShadowSmall,
+    state.activeShadow &&
+      (state.size === 48 || state.size === 56 || state.size === 64) &&
+      classes.rootActiveShadowMedium,
+    state.activeShadow &&
+      (state.size === 72 || state.size === 96 || state.size === 120 || state.size === 128) &&
+      classes.rootActiveShadowLarge,
+
+    state.activeGlow && classes.rootActiveGlow,
+    state.activeGlow && (state.size === 20 || state.size === 24 || state.size === 28) && classes.rootActiveGlowSmall,
+    state.activeGlow && (state.size === 48 || state.size === 56 || state.size === 64) && classes.rootActiveGlowMedium,
+    state.activeGlow &&
+      (state.size === 72 || state.size === 96 || state.size === 120 || state.size === 128) &&
+      classes.rootActiveShadowLarge,
+
+    state.hasIcon && classes.rootHasIcon,
+    state.hasIcon && (state.size === 20 || state.size === 24) && classes.rootHasIcon12,
+    state.hasIcon &&
+      (state.size === 48 || state.size === 56 || state.size === 64 || state.size === 72) &&
+      classes.rootHasIcon24,
+    state.hasIcon && state.size === 96 && classes.rootHasIcon40,
+    state.hasIcon && (state.size === 120 || state.size === 128) && classes.rootHasIcon48,
 
     state.className,
   );
@@ -420,7 +382,7 @@ export const useAvatarStyles = (state: AvatarState): AvatarState => {
   if (state.badge) {
     state.badge.className = ax(
       classes.badge,
-      classes[`badgeSize${state.size}` as BadgeStyleSizes],
+      classes[`badgeSize${state.size}` as keyof typeof classes],
 
       state.badge.className,
     );
