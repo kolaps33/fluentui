@@ -17,6 +17,13 @@ As a part of the spec definitions in Fluent UI, a research effort has been made 
 
 There's no comparison to be done between the two libraries, since v8 hasn't implemented this component.
 
+## Issues
+
+- #16553
+- #16452
+- #12953
+- #12238
+
 ## API
 
 The `Accordion` should implement a `children` based API as is the standard across all the surveyed alternatives as a part of Open UI research in [Prior Art](#prior-art). The component will leverage the use of `context` in the interaction and data flows of child components.
@@ -27,12 +34,13 @@ Sample usages will be given in the following section of this document [Sample co
 
 The root level component serves context and common API between all children.
 
-| Prop name          | Type        | Default Value | Details                                    |
-| ------------------ | ----------- | ------------- | ------------------------------------------ |
-| expand (?)         | boolean     | false         | Allows multiple panels to be expanded      |
-| collapse (?)       | boolean     | false         | Allows multiple panels to be collapsed     |
-| expandIconPosition | Enum        | "end"         | Position of the icon to indicate expansion |
-| heading            | ElementType | "h3"          | Heading element for the panel              |
+| Prop name          | Type                    | Default Value | Details                                                      |
+| ------------------ | ----------------------- | ------------- | ------------------------------------------------------------ |
+| expand (?)         | boolean                 | false         | Allows multiple panels to be expanded                        |
+| collapse (?)       | boolean                 | false         | Allows multiple panels to be collapsed                       |
+| expandIconPosition | Enum                    | "end"         | Position of the icon to indicate expansion                   |
+| heading            | ElementType             | "h3"          | Heading element for the panel                                |
+| onToggle           | (open: boolean) => void |               | Dispatched when it's state changes between opened and closed |
 
 By default, the Accordion must have one, and **ONLY** one (1..1), opened panel all the time.
 If `collapse` is used, then the Accordion can have one or zero (0..1) panels opened.
