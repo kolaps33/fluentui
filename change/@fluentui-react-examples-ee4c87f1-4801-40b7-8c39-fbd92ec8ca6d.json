@@ -1,7 +1,7 @@
 {
   "type": "prerelease",
-  "comment": "Updated typings",
-  "packageName": "@fluentui/react-cards",
+  "comment": "Add checkbox story for Menu",
+  "packageName": "@fluentui/react-examples",
   "email": "lingfan.gao@microsoft.com",
   "dependentChangeType": "patch"
 }

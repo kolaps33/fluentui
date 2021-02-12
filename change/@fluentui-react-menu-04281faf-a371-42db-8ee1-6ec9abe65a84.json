@@ -1,6 +1,6 @@
 {
-  "type": "patch",
-  "comment": "Updated typings",
+  "type": "minor",
+  "comment": "Add checkbox implementation for menu item",
   "packageName": "@fluentui/react-menu",
   "email": "lingfan.gao@microsoft.com",
   "dependentChangeType": "patch"
