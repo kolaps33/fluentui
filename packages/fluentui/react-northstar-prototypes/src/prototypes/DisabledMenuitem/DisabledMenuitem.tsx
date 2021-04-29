@@ -3,12 +3,16 @@ import {
   Provider,
   teamsTheme,
   Menu,
+Toolbar,
   tabListBehavior,
   menuAsToolbarBehavior,
   MenuItemProps,
   ShorthandCollection,
 } from '@fluentui/react-northstar';
 import {
+BulletsIcon, NumberListIcon, ToDoListIcon,
+UnderlineIcon,
+FontColorIcon,
   FormatIcon,
   PaperclipIcon,
   EmojiIcon,
@@ -45,7 +49,7 @@ const tabItems = [
   { key: 'events', content: 'Upcoming Events' },
 ];
 
-const toolbarItems: ShorthandCollection<MenuItemProps> = [
+const menuToolbarItems: ShorthandCollection<MenuItemProps> = [
   {
     icon: (
       <FormatIcon
@@ -172,9 +176,128 @@ const toolbarItems: ShorthandCollection<MenuItemProps> = [
 ];
 
 const DisabledMenuitem: React.FunctionComponent = () => {
+
+  const [bulletListActive, setBulletListActive] = React.useState(false);
+  const [numberListActive, setNumberListActive] = React.useState(false);
+  const [toDoListActive, setToDoListActive] = React.useState(false);
+
+  const [toolbarActiveIndex, setToolbarActiveIndex] = React.useState(0);
+  const [toolbarMenuOpen, setToolbarMenuOpen] = React.useState(false);
+
   return (
     <Provider theme={teamsTheme}>
       <h1>Disabled Menuitem Prototype</h1>
+
+      <Toolbar
+        aria-label="Toolbar can contain a radio group in a menu"
+        items={[
+        {
+          key: 'radiogroup',
+          kind: 'group',
+          items: [
+            {
+              key: 'bullets',
+              icon: <BulletsIcon {...{ outline: true }} />,
+              active: bulletListActive,
+              onClick: () => {
+                setBulletListActive(!bulletListActive);
+
+                // deselect other radio items
+                setNumberListActive(false);
+                setToDoListActive(false);
+              },
+              'aria-label': 'bullet list',
+            },
+            {
+              key: 'number-list',
+              icon: <NumberListIcon {...{ outline: true }} />,
+              disabled: true,
+              active: numberListActive,
+              onClick: () => {
+                setNumberListActive(!numberListActive);
+
+                // deselect other radio items
+                setBulletListActive(false);
+                setToDoListActive(false);
+              },
+              'aria-label': 'number list',
+            },
+            {
+              key: 'to-do-list',
+              icon: <ToDoListIcon {...{ outline: true }} />,
+              active: toDoListActive,
+              onClick: () => {
+                setToDoListActive(!toDoListActive);
+
+                // deselect other radio items
+                setBulletListActive(false);
+                setNumberListActive(false);
+              },
+              'aria-label': 'to do list',
+            },
+          ],
+        },
+          {
+            key: 'underline',
+            content: 'underline',
+            icon: <UnderlineIcon />,
+            title: 'Underline',
+            disabled: true,
+          },
+          {
+            key: 'check-me',
+            content: 'check me',
+            icon: <UnderlineIcon />,
+            title: 'Check me',
+            kind: 'toggle',
+            disabled: true,
+          },
+          {
+            key: 'font color',
+            content: 'font color',
+            icon: <FontColorIcon />,
+            title: 'Font color',
+          },
+          {
+            icon: <MoreIcon />,
+            key: 'more',
+            active: toolbarMenuOpen,
+            title: 'More',
+            menu: [
+              {
+                key: 'group',
+                activeIndex: toolbarActiveIndex,
+                kind: 'group',
+                items: [
+                  { key: 'left', content: 'Left' },
+                  { key: 'center', content: 'Center', disabled: true },
+                  { key: 'right', content: 'Right' },
+                  { key: 'justify', content: 'Justify' },
+                ],
+                onItemClick: (e, data) => setToolbarActiveIndex(data.index),
+              },
+              { key: 'divider', kind: 'divider' },
+              {
+              key: 'something',
+              content: 'Something',
+              disabled: true,
+              },
+              {
+              key: 'some-check',
+              content: 'Some check',
+              kind: 'toggle',
+              active: true,
+              disabled: true,
+              },
+              'About...',
+            ],
+            menuOpen: toolbarMenuOpen,
+            onMenuOpenChange: (e, { menuOpen }) => {
+              setToolbarMenuOpen(menuOpen);
+            },
+          },
+        ]}
+      />
 
       <Menu defaultActiveIndex={0} items={menuItems} />
 
@@ -189,7 +312,7 @@ const DisabledMenuitem: React.FunctionComponent = () => {
 
       <Menu
         defaultActiveIndex={0}
-        items={toolbarItems}
+        items={menuToolbarItems}
         iconOnly
         accessibility={menuAsToolbarBehavior}
         aria-label="Compose Editor"
@@ -199,3 +322,4 @@ const DisabledMenuitem: React.FunctionComponent = () => {
 }; // End DisabledMenuitem
 
 export default DisabledMenuitem;
+
