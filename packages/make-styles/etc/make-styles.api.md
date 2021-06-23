@@ -7,27 +7,20 @@
 import { Properties } from 'csstype';
 
 // @internal
-export function __styles<Slots extends string>(resolvedStyles: ResolvedStylesBySlots<Slots>): (options: Pick<MakeStylesOptions, "dir" | "renderer">) => Record<Slots, string>;
+export function __styles<Slots extends string>(resolvedStyles: ResolvedStylesBySlots<Slots>): (options: Pick<MakeStylesOptions, 'dir' | 'renderer'>) => Record<Slots, string>;
 
 // Warning: (ae-internal-missing-underscore) The name "createCSSVariablesProxy" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
 export function createCSSVariablesProxy(prefix?: string): unknown;
 
-// Warning: (ae-forgotten-export) The symbol "MakeStylesDOMRenderer" needs to be exported by the entry point index.d.ts
-//
-// @public (undocumented)
-export function createDOMRenderer(target: Document | undefined): MakeStylesDOMRenderer;
+// @public
+export function createDOMRenderer(target?: Document | undefined): MakeStylesRenderer;
 
 // Warning: (ae-internal-missing-underscore) The name "DEFINITION_LOOKUP_TABLE" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
 export const DEFINITION_LOOKUP_TABLE: Record<string, LookupItem>;
-
-// Warning: (ae-internal-missing-underscore) The name "HASH_LENGTH" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
-export const HASH_LENGTH = 7;
 
 // Warning: (ae-internal-missing-underscore) The name "HASH_PREFIX" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -44,9 +37,7 @@ export const LOOKUP_DEFINITIONS_INDEX = 0;
 // @internal (undocumented)
 export const LOOKUP_DIR_INDEX = 1;
 
-// Warning: (ae-internal-missing-underscore) The name "LookupItem" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal (undocumented)
+// @public (undocumented)
 export type LookupItem = [/* definitions: */ MakeStylesReducedDefinitions, /* dir:  */ /* dir:  */ 'rtl' | 'ltr'];
 
 // @public (undocumented)
@@ -103,10 +94,20 @@ export interface MakeStylesRenderer {
     id: string;
     // (undocumented)
     insertDefinitions(dir: 'ltr' | 'rtl', resolvedDefinitions: MakeStylesReducedDefinitions): string;
+    // (undocumented)
+    insertionCache: Record<string, true>;
+    // (undocumented)
+    styleElements: Partial<Record<StyleBucketName, HTMLStyleElement>>;
 }
 
 // @public (undocumented)
-export type MakeStylesResolvedRule = [StyleBucketName, string | undefined, string, string?];
+export type MakeStylesResolvedRule = [
+    StyleBucketName,
+    string | undefined,
+    string,
+    string?,
+    string?
+];
 
 // @public (undocumented)
 export type MakeStylesStyleFunctionRule<Tokens> = (tokens: Tokens) => MakeStyles;
@@ -117,20 +118,23 @@ export type MakeStylesStyleRule<Tokens> = MakeStyles | MakeStylesStyleFunctionRu
 // @public
 export function mergeClasses(...classNames: (string | false | undefined)[]): string;
 
+// @public
+export function rehydrateRendererCache(renderer: MakeStylesRenderer, target?: Document | undefined): void;
+
 // Warning: (ae-internal-missing-underscore) The name "ResolvedStylesBySlots" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal
 export type ResolvedStylesBySlots<Slots extends string> = Record<Slots, Record<string, MakeStylesResolvedRule>>;
 
+// Warning: (ae-internal-missing-underscore) The name "resolveProxyValues" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export function resolveProxyValues<T>(value: T): T;
+
 // Warning: (ae-internal-missing-underscore) The name "resolveStyleRules" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal
 export function resolveStyleRules(styles: MakeStyles, unstable_cssPriority?: number, pseudo?: string, media?: string, support?: string, result?: Record<string, MakeStylesResolvedRule>, rtlValue?: string): Record<string, MakeStylesResolvedRule>;
-
-// Warning: (ae-internal-missing-underscore) The name "RTL_PREFIX" should be prefixed with an underscore because the declaration is marked as @internal
-//
-// @internal
-export const RTL_PREFIX = "r";
 
 // Warning: (ae-internal-missing-underscore) The name "RULE_CLASSNAME_INDEX" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -142,15 +146,25 @@ export const RULE_CLASSNAME_INDEX = 1;
 // @internal (undocumented)
 export const RULE_CSS_INDEX = 2;
 
+// Warning: (ae-internal-missing-underscore) The name "RULE_RTL_CLASSNAME_INDEX" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export const RULE_RTL_CLASSNAME_INDEX = 3;
+
 // Warning: (ae-internal-missing-underscore) The name "RULE_RTL_CSS_INDEX" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
-export const RULE_RTL_CSS_INDEX = 3;
+export const RULE_RTL_CSS_INDEX = 4;
 
 // Warning: (ae-internal-missing-underscore) The name "RULE_STYLE_BUCKET_INDEX" should be prefixed with an underscore because the declaration is marked as @internal
 //
 // @internal (undocumented)
 export const RULE_STYLE_BUCKET_INDEX = 0;
+
+// Warning: (ae-internal-missing-underscore) The name "SEQUENCE_HASH_LENGTH" should be prefixed with an underscore because the declaration is marked as @internal
+//
+// @internal (undocumented)
+export const SEQUENCE_HASH_LENGTH = 7;
 
 // Warning: (ae-internal-missing-underscore) The name "SEQUENCE_PREFIX" should be prefixed with an underscore because the declaration is marked as @internal
 //
@@ -158,7 +172,10 @@ export const RULE_STYLE_BUCKET_INDEX = 0;
 export const SEQUENCE_PREFIX = "__";
 
 // @public
-export type StyleBucketName = '' | 'l' | 'v' | 'w' | 'f' | 'i' | 'h' | 'a' | 't';
+export type StyleBucketName = '' | 'l' | 'v' | 'w' | 'f' | 'i' | 'h' | 'a' | 'k' | 't';
+
+// @public
+export const styleBucketOrdering: StyleBucketName[];
 
 
 // (No @packageDocumentation comment for this package)

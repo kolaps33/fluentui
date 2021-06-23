@@ -4,7 +4,13 @@
 
 ```ts
 
+import type { MakeStylesStyleRule } from '@fluentui/make-styles';
+import { RefObject } from 'react';
+import type { Theme } from '@fluentui/react-theme';
 import { Types } from 'tabster';
+
+// @public (undocumented)
+export const createFocusIndicatorStyleRule: (rule?: MakeStylesStyleRule<Theme>) => MakeStylesStyleRule<Theme>;
 
 // @public
 export const useArrowNavigationGroup: (options?: UseArrowNavigationGroupOptions | undefined) => Types.TabsterDOMAttribute;
@@ -20,19 +26,27 @@ export const useFocusFinders: () => {
     findAllFocusable: (root: HTMLElement, matcher: (el: HTMLElement) => boolean) => HTMLElement[];
     findFirstFocusable: (root: HTMLElement) => HTMLElement | null | undefined;
     findLastFocusable: (root: HTMLElement) => HTMLElement | null | undefined;
+    findNextFocusable: (current: HTMLElement) => HTMLElement | null | undefined;
+    findPrevFocusable: (current: HTMLElement) => HTMLElement | null | undefined;
 };
 
 // @public
-export const useTabsterAttributes: (props: Partial<{
-    deloser: import("tabster/dist/Types").DeloserBasicProps;
-    root: import("tabster/dist/Types").RootBasicProps;
-    modalizer: import("tabster/dist/Types").ModalizerBasicProps;
-    focusable: import("tabster/dist/Types").FocusableProps;
-    groupper: import("tabster/dist/Types").GroupperBasicProps;
-    uberGroupper: true;
-    observed: import("tabster/dist/Types").ObservedElementBasicProps;
-    outline: import("tabster/dist/Types").OutlinedElementProps;
-}> | null, plain?: false | undefined) => import("tabster/dist/Types").TabsterDOMAttribute;
+export function useKeyboardNavAttribute<E extends HTMLElement>(): RefObject<E>;
+
+// @public
+export const useModalAttributes: (options?: UseModalAttributesOptions) => {
+    modalAttributes: Types.TabsterDOMAttribute;
+    triggerAttributes: Types.TabsterDOMAttribute;
+};
+
+// @public (undocumented)
+export interface UseModalAttributesOptions {
+    alwaysFocusable?: boolean;
+    trapFocus?: boolean;
+}
+
+// @public
+export const useTabsterAttributes: (props: Types.TabsterAttributeProps) => Types.TabsterDOMAttribute;
 
 
 // (No @packageDocumentation comment for this package)
